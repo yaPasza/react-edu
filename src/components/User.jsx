@@ -1,4 +1,5 @@
 import React from "react";
+import Bookmark from "./Bookmark";
 
 const User = ({ ...props }) => {
     return (
@@ -8,6 +9,7 @@ const User = ({ ...props }) => {
             <td>{props.profession.name}</td>
             <td>{props.completedMeetings}</td>
             <td>{props.rate}</td>
+            <td><Bookmark bookmark={props.bookmark} onSwapFavorite={props.onSwapFavorite} _id={props._id} /></td>
             <td>
                 <button onClick={() => props.onRemove(props._id)}>Удалить</button>
             </td>
