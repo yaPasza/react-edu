@@ -11,7 +11,7 @@ const User = ({ ...props }) => {
             <td>{props.rate}</td>
             <td><Bookmark bookmark={props.bookmark} onSwapFavorite={props.onSwapFavorite} _id={props._id} /></td>
             <td>
-                <button onClick={() => props.onRemove(props._id)}>Удалить</button>
+                <button className="btn btn-danger btn-sm" onClick={() => props.onRemove(props._id)}>Удалить</button>
             </td>
         </tr>
     )

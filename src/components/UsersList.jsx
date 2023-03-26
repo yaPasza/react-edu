@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import api from '../api';
+import { paginate } from "../utils/paginate";
 import Pagination from "./Pagination";
 import RenderTitle from "./RenderTitle";
 import User from "./User";
@@ -9,6 +10,8 @@ const UsersList = () => {
 
     const count = users.length;
     const pageSize = 4;
+
+    const [currentPage, setCurrentPage] = useState(1)
 
     const removeUser = (userId) => {
         setUsers((users) => users.filter(user => user._id !== userId))
@@ -24,8 +27,10 @@ const UsersList = () => {
     }
 
     const handleChangePage = (pageIndex) => {
-        console.log("page:", pageIndex)
+        setCurrentPage(pageIndex)
     }
+
+    const userCrop = paginate(users, currentPage, pageSize)
 
     return (
         <>
@@ -44,14 +49,14 @@ const UsersList = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {users.map(user =>
+                        {userCrop.map(user =>
                             <User {...user} key={user._id} onRemove={removeUser} onSwapFavorite={swapFavorite} />
                         )}
                     </tbody>
                 </table>)
                 : ''
             }
-            <Pagination itemsCount={count} pageSize={pageSize} onPageChange={handleChangePage} />
+            <Pagination itemsCount={count} pageSize={pageSize} currentPage={currentPage} onPageChange={handleChangePage} />
         </>
     )
 }
